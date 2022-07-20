@@ -57,6 +57,9 @@ class ViTConfig():
     def assertions_corrections(self):
         assert self.classifier in HEADS, f'Choose from {HEADS}'
 
+        if self.image_size == 384 and self.num_classes == 1000:
+            self.url = self.url.replace('21k', '21k%2Bimagenet2012')
+
     def __repr__(self):
         return str(vars(self))
 
@@ -98,7 +101,7 @@ def get_b16_config():
     """Returns the ViT-B/16 configuration."""
     config = get_base_config()
     config.update(dict(
-        url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'))
+        url='"https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'))
     return config
 
 

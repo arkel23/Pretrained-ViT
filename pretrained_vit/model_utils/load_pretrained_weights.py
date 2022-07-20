@@ -84,7 +84,12 @@ def convert_single(name, filename):
     npz = np.load(filename)
 
     # Load PyTorch model
-    cfg = ViTConfig(model_name=name, load_repr_layer=True)
+    load_repr_layer = False if 'in1k' in filename else True
+    image_size = 384 if 'in1k' in filename else 224
+    num_classes = 1000 if 'in1k' in filename else 21843
+
+    cfg = ViTConfig(model_name=name, load_repr_layer=load_repr_layer,
+                    image_size=image_size, num_classes=num_classes)
     model = pretrained_vit.ViT(cfg, pretrained=False)
 
     # Convert weights
@@ -102,7 +107,7 @@ def convert_single(name, filename):
     return new_filename
 
 
-def dl_load_state_dict(model_name, url=None, model_dir=None,
+def dl_load_state_dict(model_name, num_classes=21843, image_size=224, url=None, model_dir=None,
                        map_location=None, file_name=None, progress=True):
     # Issue warning to move data if old env is set
     if os.getenv('TORCH_MODEL_ZOO'):
@@ -126,6 +131,8 @@ def dl_load_state_dict(model_name, url=None, model_dir=None,
     if model_name in MODEL_NAMES_DIC:
         model_name_og = model_name
         model_name = MODEL_NAMES_DIC[model_name]
+        if num_classes == 1000 and image_size == 384:
+            model_name = model_name + '_in1k'
         file_name = model_name
     else:
         raise NotImplementedError
@@ -176,13 +183,13 @@ def load_pretrained_weights(
         hasattr(model, 'patch_embedding') and config.num_channels == 3)
     load_pos_embedding = hasattr(model, 'positional_embedding')
     load_encoder_norm = hasattr(model, 'norm')
-    load_fc = hasattr(model, 'fc') and config.num_classes == 21843
+    load_fc = hasattr(model, 'fc') and config.num_classes in (21843, 1000)
     load_pre_logits = hasattr(model, 'pre_logits')
 
     # Load or download weights
     if weights_path is None:
         url = config.url
-        state_dict = dl_load_state_dict(model_name, url)
+        state_dict = dl_load_state_dict(model_name, config.num_classes, config.image_size, url)
     else:
         state_dict = torch.load(weights_path)
 
