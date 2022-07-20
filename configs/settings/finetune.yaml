@@ -1,0 +1,9 @@
+# hyperparameters
+image_size: 224
+batch_size: 16
+epochs: 50
+warmup_epochs: 5
+opt: 'sgd'
+weight_decay: 0.0
+
+pretrained: True

@@ -1,0 +1,5 @@
+defaults:
+    dataset: 'datasets/cifar.yaml'
+    settings: 'settings/finetune.yaml'
+
+model: 'vit_b16'

@@ -1,0 +1,8 @@
+dataset_name: 'moe'
+dataset_root_path: '../../data/moe'
+df_train: 'train.csv'
+df_val: 'val.csv'
+df_test: 'test.csv'
+folder_train: 'data'
+folder_val: 'data'
+folder_test: 'data'

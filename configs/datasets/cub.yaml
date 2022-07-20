@@ -1,0 +1,8 @@
+dataset_name: 'cub'
+dataset_root_path: '../../data/cub/CUB_200_2011'
+df_train: 'train.csv'
+df_val: 'val.csv'
+df_test: 'test.csv'
+folder_train: 'images'
+folder_val: 'images'
+folder_test: 'images'

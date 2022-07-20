@@ -1,0 +1,5 @@
+defaults:
+    dataset: 'datasets/cub.yaml'
+    settings: 'settings/scratch.yaml'
+
+model: 'vit_t16'
