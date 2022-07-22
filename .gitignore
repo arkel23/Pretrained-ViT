@@ -19,6 +19,7 @@
 # exception
 !requirements.txt
 !requirements_conda.txt
+!labels_map.txt
 
 # directories
 **/ckpts/
