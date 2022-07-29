@@ -24,7 +24,7 @@ def set_random_seed(seed=0, numpy=True):
 
 
 def summary_stats(epochs, time_total, best_acc,
-                  best_epoch, max_memory, no_params):
+                  best_epoch, max_memory, no_params, flops):
     time_avg = time_total / epochs
     best_time = time_avg * best_epoch
     no_params = no_params / (1e6)
@@ -34,8 +34,9 @@ def summary_stats(epochs, time_total, best_acc,
           Best accuracy (%): {} at epoch {}. Time to reach this (s): {}
           Max VRAM consumption (GB): {}
           Total number of parameters in all modules (M): {}
+          Total number of floating-point operations (FLOPS in G): {}
           '''.format(time_total, time_avg, best_acc, best_epoch,
-                     best_time, max_memory, no_params))
+                     best_time, max_memory, no_params, flops))
 
     wandb.run.summary['time_total'] = time_total
     wandb.run.summary['time_avg'] = time_avg
@@ -44,6 +45,7 @@ def summary_stats(epochs, time_total, best_acc,
     wandb.run.summary['best_time'] = best_time
     wandb.run.summary['max_memory'] = max_memory
     wandb.run.summary['no_params'] = no_params
+    wandb.run.summary['flops'] = flops
     return 0
 
 

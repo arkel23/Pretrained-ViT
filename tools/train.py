@@ -14,6 +14,7 @@ from pretrained_vit.model_utils.build_model import build_model
 from pretrained_vit.other_utils.build_args import parse_train_args
 from pretrained_vit.train_utils.misc_utils import summary_stats, set_random_seed
 from pretrained_vit.train_utils.scheduler import build_scheduler
+from pretrained_vit.train_utils.calc_flops import get_flops
 from pretrained_vit.train_utils.trainer import Trainer
 
 
@@ -78,11 +79,12 @@ def main():
         print(args)
 
     best_acc, best_epoch, max_memory, no_params = trainer.train()
+    flops = (get_flops(model.cfg) / (10 ** 9)) if hasattr(model, 'cfg') else None
 
     # summary stats
     if args.local_rank == 0:
         time_total = time.time() - time_start
-        summary_stats(args.epochs, time_total, best_acc, best_epoch, max_memory, no_params)
+        summary_stats(args.epochs, time_total, best_acc, best_epoch, max_memory, no_params, flops)
         wandb.finish()
 
 
