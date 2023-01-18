@@ -1,5 +1,5 @@
-# follow ffcv installation instructions
+einops
+ml-collections
 wandb
 timm==0.4.12
-einops
-transformers
+# torch==1.10.2
