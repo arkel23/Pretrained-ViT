@@ -101,7 +101,7 @@ def get_b16_config():
     """Returns the ViT-B/16 configuration."""
     config = get_base_config()
     config.update(dict(
-        url='"https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'))
+        url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz'))
     return config
 
 
