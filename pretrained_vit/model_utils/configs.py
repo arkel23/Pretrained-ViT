@@ -107,7 +107,7 @@ def get_b16_config():
 
 def get_b32_config():
     """Returns the ViT-B/32 configuration."""
-    config = get_b16_config()
+    config = get_base_config()
     config.update(dict(
         patch_size=(32, 32),
         url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_32.npz'))
@@ -117,7 +117,9 @@ def get_b32_config():
 def get_b8_config():
     """Returns the ViT-B/8 configuration."""
     config = get_base_config()
-    config.update(dict(patch_size=(8, 8)))
+    config.update(dict(
+        patch_size=(8, 8),
+        url='https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_8.npz'))
     return config
 
 

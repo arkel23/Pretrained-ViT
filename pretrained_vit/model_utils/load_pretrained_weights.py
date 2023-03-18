@@ -11,6 +11,7 @@ from .configs import ViTConfig
 
 
 MODEL_NAMES_DIC = {
+    'vit_b8': 'B_8',
     'vit_b16': 'B_16',
     'vit_b32': 'B_32',
     'vit_l16': 'L_16',
